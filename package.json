@@ -1,0 +1,34 @@
+{
+  "name": "kaizen-dev",
+  "version": "1.0.0",
+  "description": "NodeJS Framework for Better API Development",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "octalpixel (Mithushan Jalangan)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "joi": "^13.3.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/config": "0.0.34",
+    "@types/cors": "^2.8.4",
+    "@types/debug": "0.0.30",
+    "@types/express": "^4.11.1",
+    "@types/helmet": "0.0.37",
+    "@types/joi": "^13.0.8",
+    "@types/node": "^10.3.0",
+    "@types/passport": "^0.4.5",
+    "@types/passport-jwt": "^3.0.1"
+  }
+}
