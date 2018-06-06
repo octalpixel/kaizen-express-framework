@@ -13,38 +13,46 @@
 
 
 import { Request, Response, NextFunction } from "express"
-import { Model ,Document} from "mongoose"
+import { Model, Document } from "mongoose"
 import KDService from "../BaseService/KDService"
 import KDResponseDataInterface from "../BaseInterface/KDResponseDataInterface"
+import ResponseHelper from  "../Helpers/ResponseHelper"
 
-export class KDController {
+export default class KDController {
 
     // class members
     private model: Model<any>
-    private baseService:KDService;
-    private responseData:KDResponseDataInterface;
+    private baseService: KDService;
+    private responseData: KDResponseDataInterface = { success: false };
+    public ResponseHelper:ResponseHelper;
 
     //constructor
     constructor(model: Model<Document>) {
         this.model = model;
-        this.baseService =  new KDService(model);
-        this.responseData = {success:false}
+        this.baseService = new KDService(model);
+        ///console.log(this.baseService)
+        this.create = this.create.bind(this)
+        this.ResponseHelper =  new ResponseHelper();
 
     }
 
     //Create Request Handler
 
     async create(req: Request, res: Response, next: NextFunction) {
+        console.log(req.body)
+        try {
 
-        try{
             this.responseData = await this.baseService.create(req.body)
+            
+            ResponseHelper.successRequestResponse(this.responseData.data,200,res)
+            
 
-            res.json(this.responseData)
-
-        }catch{
+        }catch(err){
             this.responseData.success = false
-            this.responseData.msg =  `Failed to create ${this.model.modelName}`
-            res.json(this.responseData)
+            this.responseData.msg = `Failed to create ${this.model.modelName}`
+            console.log(err)
+            //res.json(this.responseData)
+            res.send(err)
         }
 
     }
@@ -52,7 +60,7 @@ export class KDController {
     //Read Request Handler
 
     async get(req: Request, res: Response, next: NextFunction) {
-
+        res.send("This has been loaded")
     }
 
 
