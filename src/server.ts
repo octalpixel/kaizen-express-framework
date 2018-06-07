@@ -1,6 +1,6 @@
 import * as http from 'http';
 
-import Server from "./app/ExpressServer";
+import Server from "./ExpressServer";
 
 
 const port = process.env.port || 3000;

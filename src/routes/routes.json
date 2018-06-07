@@ -1,0 +1,17 @@
+[
+    {
+        "base_url": "/api/v1/",
+        "configs": [
+            {
+                "path": "post",
+                "controller": "PostController",
+                "handlers": {
+                    "GET": "get",
+                    "POST": "create"
+                   
+                }
+            }
+        ]
+    }
+    
+]

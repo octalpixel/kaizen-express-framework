@@ -1,10 +1,10 @@
-import KDResponseDataInterface from "../BaseInterface/KDResponseDataInterface";
+import KDIResponseData from "../BaseInterface/KDIResponseData";
 import { Response } from "express";
 export default class ResponseHelper {
 
-    public static failedRequestResponse(msg: string, statusCode: number, res: Response) {
+    public static requestFailedResponse(msg: string, statusCode: number, res: Response) {
 
-        let responseData: KDResponseDataInterface = {
+        let responseData: KDIResponseData = {
             success: false,
             msg: msg
         }
@@ -14,9 +14,9 @@ export default class ResponseHelper {
     }
 
 
-    public static successRequestResponse(data: Object | string | null, statusCode: number, res: Response) {
+    public static requestSuccessResponse(data: Object | string | null, statusCode: number, res: Response) {
 
-        let responseData: KDResponseDataInterface = {
+        let responseData: KDIResponseData = {
             success: false,
             data: data
         }
@@ -25,9 +25,9 @@ export default class ResponseHelper {
 
     }
 
-    public static failedServiceResponse(msg: string) {
+    public static serviceFailedResponse(msg: string) {
 
-        let responseData: KDResponseDataInterface = {
+        let responseData: KDIResponseData = {
             success: false,
             msg: msg
         }
@@ -36,15 +36,35 @@ export default class ResponseHelper {
 
     }
 
-    public static successServiceResponse(data: Object | string | null) {
+    public static serviceSuccessResponse(data: Object | string | null) {
 
-        let responseData: KDResponseDataInterface = {
-            success: false,
+        let responseData: KDIResponseData = {
+            success: true,
             data: data
         }
 
         return responseData;
 
+    }
+
+    public static requestHandler(responseData:KDIResponseData ,res:Response){
+
+        
+        if (responseData != undefined) {
+
+            if (responseData.success) {
+                ResponseHelper.requestSuccessResponse(responseData.data, 200, res)
+            } else {
+                ResponseHelper.requestFailedResponse(responseData.msg, 400, res)
+            }
+        } else {
+            ResponseHelper.requestFailedResponse("Opps Something Went Wrong", 400, res)
+        }
+
+    }
+
+    public static internalErrorResponse(res:Response){
+        ResponseHelper.requestFailedResponse("Internal Error" , 500 , res)
     }
 
 
