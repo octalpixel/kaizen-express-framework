@@ -5,6 +5,7 @@
             {
                 "path": "post",
                 "controller": "PostController",
+               
                 "handlers": {
                     "GET": "get",
                     "POST": "create"
