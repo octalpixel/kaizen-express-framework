@@ -39,6 +39,10 @@ export default class KDController {
 
     }
 
+    public getAuthToken(req: Request, scheme = " ") {
+        return (req.headers.authorization) ? req.headers.authorization.split(scheme)[1] : null || null
+    }
+
     //Create Request Handler
     async create(req: Request, res: Response, next: NextFunction) {
         //console.log(req.body)

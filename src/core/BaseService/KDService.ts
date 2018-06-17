@@ -23,7 +23,6 @@ export default class KDService {
 
             return ResponseHelper.serviceSuccessResponse(createdData)
 
-
         } catch (ex) {
 
             console.log(ex)
@@ -44,6 +43,26 @@ export default class KDService {
             //log the error
             console.log(ex.message)
             return ResponseHelper.serviceFailedResponse("Failed to get data")
+        }
+
+    }
+
+    async getOneByCondition(params: Object) {
+
+        try {
+
+            let data = await this.model.findOne(params);
+
+            if (data != null) {
+                return ResponseHelper.serviceSuccessResponse(data)
+            }
+
+            return ResponseHelper.serviceFailedResponse("Not Found")
+
+        } catch (ex) {
+
+            return ResponseHelper.serviceFailedResponse("Failed to get data");
+
         }
 
     }
@@ -72,7 +91,7 @@ export default class KDService {
 
             if (updateData) {
                 return ResponseHelper.serviceSuccessResponse(updateData)
-            } else  {
+            } else {
                 return ResponseHelper.serviceFailedResponse("Entry Not Found!! Unable to update entry")
             }
 
@@ -83,18 +102,18 @@ export default class KDService {
     }
 
 
-    async delete(id:Schema.Types.ObjectId){
+    async delete(id: Schema.Types.ObjectId) {
 
-        try{
-            let deleteStatus =  await this.model.findByIdAndRemove({_id:id})
+        try {
+            let deleteStatus = await this.model.findByIdAndRemove({ _id: id })
 
-            if(deleteStatus){
+            if (deleteStatus) {
                 return ResponseHelper.serviceSuccessResponse("Deleted Entry")
-            }else {
+            } else {
                 return ResponseHelper.serviceFailedResponse("Entry Not Found!! Unable to delete entry")
             }
 
-        }catch(ex){
+        } catch (ex) {
             return ResponseHelper.serviceFailedResponse("Unable to Delete Entry")
         }
 

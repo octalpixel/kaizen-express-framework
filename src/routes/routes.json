@@ -5,14 +5,50 @@
             {
                 "path": "post",
                 "controller": "PostController",
-               
+                "handlers": {
+                    "GET": "getAllPost"
+                }
+            },
+            {
+                "path": "post",
+                "controller": "PostController",
+                "hasMiddleware": true,
+                "middleware": "AuthMiddleware.authenticate",
+                "handlers": {
+                    "POST": "create"
+                }
+            },
+            {
+                "path": "user",
+                "controller": "UserController",
                 "handlers": {
                     "GET": "get",
                     "POST": "create"
-                   
+                }
+            },
+            {
+                "path": "user/protected",
+                "controller": "UserController",
+                "hasMiddleware": true,
+                "middleware": "AuthMiddleware.authenticate",
+                "handlers": {
+                    "GET": "protectedRoute"
+                }
+            },
+            {
+                "path": "user/login",
+                "controller": "UserController",
+                "handlers": {
+                    "POST": "login"
+                }
+            },
+            {
+                "path": "user/register",
+                "controller": "UserController",
+                "handlers": {
+                    "POST": "register"
                 }
             }
         ]
     }
-    
 ]

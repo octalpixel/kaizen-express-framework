@@ -1,23 +1,40 @@
-import {Schema, Model, model} from 'mongoose';
+import { Schema, Model, model, SchemaTypes, Document } from 'mongoose';
+import { ObjectID } from 'bson';
+import { IUser } from "./User"
+// import slugGen = require("mongoose-slug-hero")
+const slugGen  =  require("mongoose-slug-hero")
 
-const postScheme:Schema = new Schema({
-    title:{
-        type:String,
-        required:true
+
+export interface IPost extends Document {
+
+    title: string
+    slug: string
+    body: string
+    timestamp: Date
+    author: IUser | ObjectID
+
+}
+
+const postScheme: Schema = new Schema({
+    title: {
+        type: String,
+        required: true
     },
-    slug:{
-        type:String,
-        required:true,
-        unique:true
+    body: {
+        type: String,
+        required: true
     },
-    body:{
-        type:String,
-        required:true
+    timestamp: {
+        type: Date,
+        default: Date.now,
     },
-    timestamp:{
-        type:Date,
-        default:Date.now,
+    author: {
+        type: SchemaTypes.ObjectId,
+        ref: "User",
+        required: true
     }
 });
 
-export default model('postModel', postScheme);
+postScheme.plugin(slugGen, { doc: "post", field: "title" })
+
+export const postModel = model('Post', postScheme);

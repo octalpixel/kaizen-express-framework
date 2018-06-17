@@ -1,11 +1,15 @@
 import * as express from "express"
 import * as mongoose from "mongoose"
 // import PostController from "./app/Controllers/PostController"
-import postModel from "./app/Models/Post"
+// import postModel from "./app/Models/Post"
 import * as fs from "fs"
 import { promisify } from "util"
 
 import * as controller from "./app.controller.config"
+import AuthMiddleware from "./app.middleware.config"
+
+
+import * as passport from "passport"
 
 
 
@@ -34,6 +38,7 @@ class Server {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
         this.app.use(cors());
+        this.app.use(AuthMiddleware.initialize())
 
 
         // MongoDB Connection
@@ -79,14 +84,21 @@ class Server {
                 let jsonData: Array<KDIRouteJSON> = JSON.parse(jsonRoute)
 
                 jsonData.forEach(route => {
+                    console.log(route)
                     let baseUrl = route.base_url
                     let routeConfigs = route.configs
                     routeConfigs.forEach(routeConfig => {
+
+                        console.log(routeConfig)
 
                         let routeController = new controller[routeConfig.controller]()
                         let path = routeConfig.path
 
                         let handlers = routeConfig.handlers
+
+                        let hasMiddleware = routeConfig.hasMiddleware
+
+
 
                         for (const method in handlers) {
 
@@ -94,7 +106,18 @@ class Server {
                                 let methodLowerCase = method.toLowerCase();
                                 // console.log(controller[handlers[method]()])
                                 console.log(baseUrl + path)
-                                this.app[methodLowerCase](baseUrl + path, routeController[handlers[method]])
+
+                                if (hasMiddleware) {
+                                    let middleware = routeConfig.middleware;
+                                    let middlewareController = middleware.split(".")[0];
+                                    let middlewareFunction = middleware.split(".")[1];
+                                    console.log(middlewareFunction)
+
+                                    this.app[methodLowerCase](baseUrl + path, AuthMiddleware[middlewareFunction], routeController[handlers[method]])
+
+                                } else {
+                                    this.app[methodLowerCase](baseUrl + path, routeController[handlers[method]])
+                                }
                             }
                         }
 
