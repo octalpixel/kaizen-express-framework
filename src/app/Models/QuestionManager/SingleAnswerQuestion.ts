@@ -11,7 +11,7 @@ import { Document, Schema, model } from "mongoose"
  *  
  */
 
-export interface ISingleQuestion extends Document {
+export interface ISingleAnswerQuestion extends Document {
     id: Schema.Types.ObjectId,
     question: string,
     admin_id: Schema.Types.ObjectId,

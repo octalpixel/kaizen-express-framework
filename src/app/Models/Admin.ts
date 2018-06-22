@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt"
 import * as mongooseJoiSchemaBuilder from "mongoose-to-joi-translator"
 import * as mongooseHidden from "mongoose-hidden"
 
-export interface IUser extends mongoose.Document {
+export interface IAdmin extends mongoose.Document {
 
     first_name: string;
     last_name: string;
@@ -14,7 +14,7 @@ export interface IUser extends mongoose.Document {
     comparePassword(candidatePassword: string, storedPassword: string): Promise<boolean>
 }
 
-export const userSchema = new mongoose.Schema({
+export const adminSchema = new mongoose.Schema({
     first_name: {
         type: String,
         required: true
@@ -43,9 +43,9 @@ export const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.plugin(mongooseHidden())
+adminSchema.plugin(mongooseHidden())
 
-userSchema.pre("save", function (next) {
+adminSchema.pre("save", function (next) {
 
     let user: any = this;
 
@@ -73,7 +73,7 @@ userSchema.pre("save", function (next) {
 
 })
 
-userSchema.methods.comparePassword = (candidatePassword: string, storedPassword: string): Promise<boolean> => {
+adminSchema.methods.comparePassword = (candidatePassword: string, storedPassword: string): Promise<boolean> => {
 
 
 
@@ -96,4 +96,4 @@ userSchema.methods.comparePassword = (candidatePassword: string, storedPassword:
 
 }
 
-export const userModel = mongoose.model("Admin", userSchema)
+export const adminModel = mongoose.model("Admin", adminSchema)

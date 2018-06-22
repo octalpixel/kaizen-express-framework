@@ -3,7 +3,7 @@ import { Document, model, Schema } from "mongoose"
  * Multiple Question and Answer Model
  * This document is used to create questions with multiple answers more sort of MCQ
  */
-export interface IMultipleQA extends Document {
+export interface IMultipleQuestionAnswer extends Document {
 
     question: string,
     answers: Array<string>,

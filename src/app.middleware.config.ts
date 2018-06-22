@@ -1,3 +1,3 @@
-import AuthMiddleware from "./app/Middlewares/AuthMiddleware"
+import AuthMiddleware from "./app/Middlewares/UserAuthMiddleware"
 
 export default AuthMiddleware
