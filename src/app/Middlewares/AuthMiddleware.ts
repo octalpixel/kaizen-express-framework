@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import { Strategy, ExtractJwt } from "passport-jwt";
-import { userService } from '../Services/UserService'
+import { userService } from '../Services/UserService/UserService'
 import { Request, Response, NextFunction } from "express"
 
 

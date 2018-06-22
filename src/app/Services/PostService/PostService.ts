@@ -1,7 +1,7 @@
-import { KDService } from "../../app.core.config"
+import { KDService } from "../../../app.core.config"
 import { Document } from "mongoose"
-import { IPost, postModel } from "../Models/Post"
-import ResponseHelper from "../../core/Helpers/ResponseHelper"
+import { IPost, postModel } from "../../Models/Post"
+import ResponseHelper from "../../../core/Helpers/ResponseHelper"
 import { Request, Response, NextFunction } from "express"
 
 export class PostService extends KDService {

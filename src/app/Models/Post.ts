@@ -2,7 +2,7 @@ import { Schema, Model, model, SchemaTypes, Document } from 'mongoose';
 import { ObjectID } from 'bson';
 import { IUser } from "./User"
 // import slugGen = require("mongoose-slug-hero")
-const slugGen  =  require("mongoose-slug-hero")
+const slugGen = require("mongoose-slug-hero")
 
 
 export interface IPost extends Document {
@@ -24,16 +24,14 @@ const postScheme: Schema = new Schema({
         type: String,
         required: true
     },
-    timestamp: {
-        type: Date,
-        default: Date.now,
-    },
     author: {
         type: SchemaTypes.ObjectId,
         ref: "User",
         required: true
     }
-});
+}, {
+    timestamps: { createdAt: 'createdDate', updatedAt: 'updatedDate' }
+    });
 
 postScheme.plugin(slugGen, { doc: "post", field: "title" })
 

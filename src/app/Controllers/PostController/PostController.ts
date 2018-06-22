@@ -1,8 +1,8 @@
-import KDController from "../../core/BaseController/KDController"
-import { postModel } from "../../app/Models/Post"
+import KDController from "../../../core/BaseController/KDController"
+import { postModel } from "../../Models/Post"
 import { Request, Response, NextFunction } from "express"
-import ResponseHelper from "../../core/Helpers/ResponseHelper"
-import { PostService } from "../Services/PostService"
+import ResponseHelper from "../../../core/Helpers/ResponseHelper"
+import { PostService } from "../../Services/PostService/PostService"
 
 export default class PostController extends KDController {
 
@@ -18,7 +18,7 @@ export default class PostController extends KDController {
         try {
 
             let getPost = await this.postService.getAllPost()
-
+            
             ResponseHelper.requestSuccessResponse(getPost, res)
 
 

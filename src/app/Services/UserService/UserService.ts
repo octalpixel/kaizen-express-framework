@@ -1,5 +1,5 @@
-import { KDService } from "../../app.core.config"
-import { userModel as User, IUser } from "../Models/User"
+import { KDService } from "../../../app.core.config"
+import { userModel as User, IUser } from "../../Models/User"
 import { Document } from "mongoose"
 
 export class UserService extends KDService {

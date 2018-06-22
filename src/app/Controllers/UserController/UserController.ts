@@ -1,12 +1,10 @@
-import { KDController } from "../../app.core.config"
-import { IUser, userModel, userSchema } from "../Models/User"
+import { KDController } from "../../../app.core.config"
+import { IUser, userModel, userSchema } from "../../Models/User"
 import { Request, Response, NextFunction } from "express"
-import { UserService } from "../Services/UserService"
-import ResponseHelper from "../../core/Helpers/ResponseHelper"
+import { UserService } from "../../Services/UserService/UserService"
+import ResponseHelper from "../../../core/Helpers/ResponseHelper"
 import * as jwt from 'jsonwebtoken';
 import * as moment from "moment";
-
-
 
 
 
