@@ -6,7 +6,7 @@ import * as fs from "fs"
 import { promisify } from "util"
 
 import * as controller from "./app.controller.config"
-import AuthMiddleware from "./app.middleware.config"
+import * as AuthMiddleware from "./app.middleware.config"
 
 
 import * as passport from "passport"
@@ -38,7 +38,7 @@ class Server {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
         this.app.use(cors());
-        this.app.use(AuthMiddleware.initialize())
+
 
 
         // MongoDB Connection
@@ -113,7 +113,9 @@ class Server {
                                     let middlewareFunction = middleware.split(".")[1];
                                     console.log(middlewareFunction)
 
-                                    this.app[methodLowerCase](baseUrl + path, AuthMiddleware[middlewareFunction], routeController[handlers[method]])
+                                    this.app.use(AuthMiddleware[middlewareController].initialize())
+
+                                    this.app[methodLowerCase](baseUrl + path, AuthMiddleware[middlewareController][middlewareFunction], routeController[handlers[method]])
 
                                 } else {
                                     this.app[methodLowerCase](baseUrl + path, routeController[handlers[method]])

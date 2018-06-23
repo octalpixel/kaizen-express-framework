@@ -50,5 +50,41 @@
                 }
             }
         ]
+    },
+    {
+        "base_url": "/api/admin/",
+        "configs": [
+            {
+                "path": "admin",
+                "controller": "AdminController",
+                "handlers": {
+                    "GET": "get",
+                    "POST": "create"
+                }
+            },
+            {
+                "path": "protected",
+                "controller": "UserController",
+                "hasMiddleware": true,
+                "middleware": "AdminMiddleware.authenticate",
+                "handlers": {
+                    "GET": "protectedRoute"
+                }
+            },
+            {
+                "path": "login",
+                "controller": "AdminController",
+                "handlers": {
+                    "POST": "login"
+                }
+            },
+            {
+                "path": "register",
+                "controller": "AdminController",
+                "handlers": {
+                    "POST": "register"
+                }
+            }
+        ]
     }
 ]

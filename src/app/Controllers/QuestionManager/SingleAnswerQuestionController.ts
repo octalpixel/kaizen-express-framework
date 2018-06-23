@@ -1,12 +1,16 @@
 import { KDController } from "../../../app.core.config";
 import { singleQuestionModel } from "../../Models/QuestionManager/SingleAnswerQuestion";
+import { SingleQuestionService } from "../../Services/QuestionManagerService/SingleQuestionService";
 
-class QuestionManagerController extends KDController {
+class SingleAnswerQuestionController extends KDController {
 
 
-    constructor(){
+    private saqService: SingleQuestionService
+    constructor() {
         super(singleQuestionModel)
+        this.saqService = new SingleQuestionService()
+
     }
-    
+
 
 }
