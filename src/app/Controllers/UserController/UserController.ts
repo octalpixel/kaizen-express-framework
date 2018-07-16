@@ -12,8 +12,9 @@ export default class UserController extends KDController {
 
     userService: UserService
     constructor() {
-        super(userModel)
+        super()
         this.userService = new UserService()
+        this.setService(this.userService)
         this.login = this.login.bind(this)
         this.getToken = this.getToken.bind(this)
         this.register = this.register.bind(this)
@@ -65,6 +66,7 @@ export default class UserController extends KDController {
                 let correctPassword = await user.comparePassword(password, user.password)
 
                 if (correctPassword) {
+
 
                     let [id, token] = [user.id, this.getToken(user.toJSON())]
 

@@ -13,8 +13,9 @@ export default class AdminController extends KDController {
 
     adminService: AdminService
     constructor() {
-        super(adminModel)
+        super()
         this.adminService = new AdminService()
+        this.setService(this.adminService)
         this.login = this.login.bind(this)
         this.getToken = this.getToken.bind(this)
         this.register = this.register.bind(this)
@@ -112,6 +113,8 @@ export default class AdminController extends KDController {
 
             let registerDetails: IAdmin = req.body
             //Validation comes here 
+
+            console.log(registerDetails)
 
             //Check if user already exists
             let { username, email } = registerDetails

@@ -8,13 +8,12 @@ import { Document, Schema, model } from "mongoose"
  * -timestamp:date
  * -admin_id
  *  
- *  
  */
 
 export interface ISingleAnswerQuestion extends Document {
-    id: Schema.Types.ObjectId,
+    // _id: Schema.Types.ObjectId,
     question: string,
-    admin_id: Schema.Types.ObjectId,
+    admin_id: string,
     created_at: Date,
     updated_at: Date
 
@@ -27,9 +26,9 @@ const singleQuestionSchema = new Schema({
     },
 
     admin_id: {
-        type: Schema.Types.ObjectId,
         required: true,
-        ref:"Admin"
+        type: Schema.Types.ObjectId,
+        ref:'Admininistrator'
     }
 },
     {

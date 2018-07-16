@@ -13,7 +13,7 @@
                 "path": "post",
                 "controller": "PostController",
                 "hasMiddleware": true,
-                "middleware": "AuthMiddleware.authenticate",
+                "middleware": "UserAuthMiddleware.authenticate",
                 "handlers": {
                     "POST": "create"
                 }
@@ -30,7 +30,7 @@
                 "path": "user/protected",
                 "controller": "UserController",
                 "hasMiddleware": true,
-                "middleware": "AuthMiddleware.authenticate",
+                "middleware": "UserAuthMiddleware.authenticate",
                 "handlers": {
                     "GET": "protectedRoute"
                 }
@@ -48,6 +48,38 @@
                 "handlers": {
                     "POST": "register"
                 }
+            },
+            {
+                "path": "questionset",
+                "controller": "QuestionManagerController",
+                "handlers": {
+                    "POST": "createQuestionSet",
+                    "GET": "getAllQuestionSet",
+                    "PUT": "updateQuestionList"
+                }
+            },
+            {
+                "path": "questionset/:questionset_id",
+                "controller": "QuestionManagerController",
+                "handlers": {
+                    "GET": "getQuestionSetById"
+                }
+            },
+            {
+                "path": "questions/single",
+                "controller": "SingleAnswerQuestionController",
+                "handlers": {
+                    "POST": "createQuestion",
+                    "GET": "getAllQuestions"
+                }
+            },
+            {
+                "path": "questions/single/:question_id",
+                "controller": "SingleAnswerQuestionController",
+                "handlers": {
+                    "POST": "createQuestion",
+                    "GET": "getQuestionById"
+                }
             }
         ]
     },
@@ -55,18 +87,10 @@
         "base_url": "/api/admin/",
         "configs": [
             {
-                "path": "admin",
-                "controller": "AdminController",
-                "handlers": {
-                    "GET": "get",
-                    "POST": "create"
-                }
-            },
-            {
                 "path": "protected",
                 "controller": "UserController",
                 "hasMiddleware": true,
-                "middleware": "AdminMiddleware.authenticate",
+                "middleware": "AdminAuthMiddleware.authenticate",
                 "handlers": {
                     "GET": "protectedRoute"
                 }

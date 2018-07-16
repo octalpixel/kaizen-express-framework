@@ -96,4 +96,4 @@ userSchema.methods.comparePassword = (candidatePassword: string, storedPassword:
 
 }
 
-export const userModel = mongoose.model("Admin", userSchema)
+export const userModel = mongoose.model("User", userSchema)

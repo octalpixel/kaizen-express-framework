@@ -6,9 +6,11 @@ import KDService from '../BaseService/KDService';
 
 export default class KDAuthMiddlware {
 
-    private actorService:KDService
-    constructor(service:KDService){
+    private actorService: KDService
+    private secretKey: string = "mithushan"
+    constructor(service: KDService) {
         this.actorService = service
+        this.jwtStrategy = this.jwtStrategy.bind(this)
     }
 
     public initialize() {
@@ -29,27 +31,29 @@ export default class KDAuthMiddlware {
                 })
             }
 
-            console.log(user)
+            console.log("This is the user that is being called" +  user)
 
             if (!user) {
                 if (info.name === "TokenExpiredError") {
-                    return res.status(401).json({ success:false,msg: "Your token has expired. Please generate a new one" });
+                    return res.status(401).json({ success: false, msg: "Your token has expired. Please generate a new one" });
                 } else {
-                    return res.status(401).json({ success:false , msg: info.message });
+                    return res.status(401).json({ success: false, msg: info.message });
                 }
             }
 
-            
+
             return next()
         })(req, res, next)
     }
- 
+
     private jwtStrategy(): Strategy {
 
         const params = {
-            secretOrKey: "mithushan",
+            secretOrKey: this.secretKey,
             jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("JWT")
         };
+
+        console.log(params)
 
         return new Strategy(params, async (jwt_payload, done) => {
             console.log("Strategy is opem")

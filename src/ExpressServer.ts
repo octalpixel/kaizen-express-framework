@@ -84,12 +84,12 @@ class Server {
                 let jsonData: Array<KDIRouteJSON> = JSON.parse(jsonRoute)
 
                 jsonData.forEach(route => {
-                    console.log(route)
+                    // console.log(route)
                     let baseUrl = route.base_url
                     let routeConfigs = route.configs
                     routeConfigs.forEach(routeConfig => {
 
-                        console.log(routeConfig)
+                        // console.log(routeConfig)
 
                         let routeController = new controller[routeConfig.controller]()
                         let path = routeConfig.path

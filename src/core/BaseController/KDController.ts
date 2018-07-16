@@ -26,9 +26,8 @@ export default class KDController {
 
 
     //constructor
-    constructor(model: Model<Document>) {
-        this.model = model;
-        this.baseService = new KDService(model);
+    constructor() {
+
         ///console.log(this.baseService)
         this.create = this.create.bind(this)
         this.get = this.get.bind(this)
@@ -37,6 +36,16 @@ export default class KDController {
         this.delete = this.delete.bind(this)
 
 
+    }
+
+    setService(service: KDService) {
+        this.baseService = service
+    }
+
+    setServiceByModel(model: Model<Document>) {
+        this.model = model;
+        this.baseService = new KDService();
+        this.baseService.setModel(model)
     }
 
     public getAuthToken(req: Request, scheme = " ") {

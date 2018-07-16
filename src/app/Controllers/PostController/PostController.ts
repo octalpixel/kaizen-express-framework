@@ -8,8 +8,9 @@ export default class PostController extends KDController {
 
     private postService: PostService
     constructor() {
-        super(postModel)
+        super()
         this.postService = new PostService()
+        this.setService(this.postService)
         this.getAllPost = this.getAllPost.bind(this)
     }
 
@@ -18,7 +19,7 @@ export default class PostController extends KDController {
         try {
 
             let getPost = await this.postService.getAllPost()
-            
+
             ResponseHelper.requestSuccessResponse(getPost, res)
 
 

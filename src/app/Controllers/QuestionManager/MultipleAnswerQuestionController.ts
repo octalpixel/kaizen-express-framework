@@ -6,8 +6,9 @@ class MultipleAnswerQuestionController extends KDController {
 
     private maqService: MultipleQuestionService
     constructor() {
-        super(multipleQuestionModel)
+        super()
         this.maqService = new MultipleQuestionService()
+        super.setService(this.maqService);
     }
 
 

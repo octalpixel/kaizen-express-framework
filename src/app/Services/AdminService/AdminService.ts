@@ -1,11 +1,12 @@
 import { KDService } from "../../../app.core.config"
-import { userModel as User, IAdmin } from "../../Models/User"
+import { adminModel as User, IAdmin } from "../../Models/Admin"
 import { Document } from "mongoose"
 
 export class AdminService extends KDService {
 
     constructor() {
-        super(User)
+        super()
+        this.setModel(User)
     }
 
     async hasAdmin(params: Object) {

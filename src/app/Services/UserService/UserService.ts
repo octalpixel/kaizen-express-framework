@@ -1,11 +1,12 @@
 import { KDService } from "../../../app.core.config"
-import { userModel as User, IAdmin } from "../../Models/User"
+import { userModel as User, IUser } from "../../Models/User"
 import { Document } from "mongoose"
 
-export class AdminService extends KDService {
+export class UserService extends KDService {
 
     constructor() {
-        super(User)
+        super()
+        super.setModel(User)
     }
 
     async hasUser(params: Object) {
@@ -23,7 +24,7 @@ export class AdminService extends KDService {
     }
 
 
-    async createUser(user: IAdmin) {
+    async createUser(user: IUser) {
 
         try {
             let createdUser = await super.create(user)
@@ -44,4 +45,4 @@ export class AdminService extends KDService {
 
 }
 
-export const userService = new AdminService()
+export const userService = new UserService()

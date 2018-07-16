@@ -4,7 +4,8 @@ import { multipleQuestionModel } from "../../Models/QuestionManager/MultipleAnsw
 export class MultipleQuestionService extends KDService {
 
     constructor() {
-        super(multipleQuestionModel)
+        super()
+        super.setModel(multipleQuestionModel)
     }
 
 

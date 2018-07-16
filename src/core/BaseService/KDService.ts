@@ -1,13 +1,11 @@
-import { Model, Document, Schema } from "mongoose"
+import { Model, Document, Schema, Types } from "mongoose"
 import KDIResponseData from "../BaseInterface/KDIResponseData"
 import ResponseHelper from "../Helpers/ResponseHelper"
 import { SecureClientSessionOptions } from "http2";
 export default class KDService {
 
     model: Model<Document>
-    constructor(model: Model<Document>) {
-        this.model = model;
-
+    constructor() {
         this.create = this.create.bind(this)
         this.delete = this.delete.bind(this)
         this.getAll = this.getAll.bind(this)
@@ -15,12 +13,15 @@ export default class KDService {
         this.update = this.update.bind(this)
     }
 
+    public setModel(model: Model<Document>) {
+        this.model = model;
+    }
 
-    async create(data: Object) {
+    async create(data: Object, populate?: { fields: string }) {
         try {
             let modelDocument: Document = new this.model(data);
             let createdData = await modelDocument.save();
-
+            console.log(createdData)
             return ResponseHelper.serviceSuccessResponse(createdData)
 
         } catch (ex) {
@@ -60,7 +61,7 @@ export default class KDService {
             return ResponseHelper.serviceFailedResponse("Not Found")
 
         } catch (ex) {
-
+            console.log(ex.message)
             return ResponseHelper.serviceFailedResponse("Failed to get data");
 
         }
@@ -73,7 +74,12 @@ export default class KDService {
 
             let getOneData = await this.model.findOne({ _id: id });
 
-            return ResponseHelper.serviceSuccessResponse(getOneData)
+
+            if (getOneData != null) {
+                return ResponseHelper.serviceSuccessResponse(getOneData)
+            }
+
+            return ResponseHelper.serviceFailedResponse("Not Found")
 
 
         } catch (ex) {

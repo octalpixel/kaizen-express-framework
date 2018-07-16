@@ -7,7 +7,8 @@ import { Request, Response, NextFunction } from "express"
 export class PostService extends KDService {
 
     constructor() {
-        super(postModel)
+        super()
+        super.setModel(postModel)
     }
 
 
